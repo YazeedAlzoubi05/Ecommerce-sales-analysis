@@ -1,73 +1,126 @@
-# Sales Data Analytics Project  
+# E-Commerce Sales Analysis
 
-## Project Overview  
-This project analyzes transactional sales data from a multinational e-commerce company specializing in electronics , operating across Jordan and Lebanon from 2021 to 2025.  
-The dataset covers multiple sales channels (online and physical stores) and includes details about orders, products, customers, sales representatives, and promotions.  
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)](https://jupyter.org/)
+[![pandas](https://img.shields.io/badge/pandas-Data%20Analysis-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-11557C)](https://matplotlib.org/)
 
-The goal of this project was to clean, transform, and analyze the raw sales data to uncover insights into sales performance, customer segmentation, pricing, promotions, and market trends.  
+An exploratory analysis of multichannel electronics sales across **Jordan and Lebanon**. The notebook combines two sales files with customer data, cleans inconsistent records, engineers business-ready features, and answers practical questions about channels, products, customers, revenue, and sales trends.
 
+## Project snapshot
 
---
+| Metric | Value |
+|---|---:|
+| Raw sales rows | 9,162 |
+| Rows after duplicate removal | 9,147 |
+| Unique orders | 8,481 |
+| Customers represented in sales | 1,000 |
+| Customer records | 1,378 |
+| Products | 11 |
+| Analysis period | January 2021 – July 2025 |
 
-## Workflow  
+## What the analysis covers
 
-### 1. Data Loading  
-- Imported the raw CSV files: `sales_data_part1.csv`, `sales_data_part2.csv`, and `customers.csv`.  
-- Concatenated sales datasets into a single DataFrame.  
+- Data-quality checks for missing values, inconsistent labels, and duplicates
+- Standardization of channel and country values
+- Project-specific conversion of prices to a common USD field
+- Revenue and time-feature engineering
+- Sales-channel and product performance
+- Customer-sector and city-level analysis
+- Product-pair analysis for cross-selling opportunities
+- Weekday, monthly, and yearly sales trends
+- Salesperson performance and year-over-year growth
 
-### 2. Data Cleaning  
-- Renamed all columns to `snake_case`.  
-- Standardized text columns (lowercased, stripped spaces).  
-- Fixed inconsistent `channel` values (mapped website/online → online, in-store/offline → offline).  
-- Replaced missing/invalid channel values with `unknown`.  
-- Removed duplicate records (kept first occurrence).  
+## Selected findings
 
-### 3. Feature Engineering  
-- Standardized `country_code` into full country names.  
-- Converted prices to USD (`unit_price_usd`), with exchange rates for Jordan.  
-- Created a discount column (`discount_pct`) applying 10% for orders with more than 5 units.  
-- Calculated `total_amount` after discount.  
-- Added `commission_amount` based on salesperson commission.  
-- Extracted date components (`year`, `month`, `weekday_name`).  
-- Classified sales volume (`High`, `Medium`, `Low`).  
-- Segmented customers (Loyal, Premium, Standard, One-time).  
+- **Online was the dominant sales channel**, with 6,513 transaction rows compared with 2,629 offline and 5 with an unknown channel.
+- **Tuesday generated the highest 2024 sales amount**, reaching approximately 236,342 in the notebook's standardized monetary values.
+- **Lebanon's offline channel had the fewest transactions** among valid country-channel combinations, with 466.
+- **Keyboard and mouse was the most frequent product pair**, appearing together in 383 orders.
+- **University was the largest sector among the analyzed loyal-customer segment**, with 22 records.
+- **Irbid led Jordan's online sales volume by city**, with 3,915 units.
+- Jordan's year-over-year sales increased by **10.56% in 2024**, while Lebanon declined by **11.13%** in the same year.
 
-### 4. Analysis and Insights  
-- Counted transactions by channel and product.  
-- Analyzed pricing (average, min, max unit prices).  
-- Measured discount usage and promotion performance.  
-- Segmented customers and counted each group.  
-- Checked weekly sales patterns (e.g., which weekdays had highest sales in 2024).  
-- Identified weak channel–country combinations for possible closure.  
-- Analyzed which products are sold together most often.  
-- Compared weekday sales between Jordan and Lebanon.  
-- Found top-performing salespeople by year.  
-- Calculated total commissions per salesperson (highest vs lowest earners).  
-- Computed Year-over-Year sales growth for each country.  
-- Created monthly product summaries (revenue, transactions, units sold).  
-- Tracked 2024 monthly sales trends for specific products.  
-- Measured the number of promotion periods and products involved.  
+## Visual highlights
 
-### 5. Visualizations  
-- Bar chart of total commissions per salesperson.  
-- Yearly sales trends by country.  
-- Monthly product trends (example: laptops in 2024).  
-- Heatmaps and comparison charts for weekday sales.  
-- Other plots for customer segmentation and promotions.  
+### Channel activity
 
----
+![Transactions by sales channel](images/transactions-by-channel.png)
 
-## Key Findings  
-- Some sales channels underperform consistently and could be closed to reduce costs.  
-- Customer segmentation shows clear loyalty tiers, with a small group of high-value repeat customers.  
-- Sales patterns vary by country and weekday, important for planning promotions.  
-- Certain products sell well in bundles, which can guide cross-selling strategies.  
-- Promotions had mixed results: some boosted sales, others had little to no impact.  
-- Top salespeople contribute disproportionately to total sales and commissions.  
+### Country and channel comparison
 
----
+![Transactions by country and channel](images/country-channel-heatmap.png)
 
-## Tools Used  
-- Python (pandas, numpy, matplotlib)  
-- Jupyter Notebook for coding and analysis  
-- CSV data files as the main input  
+### Products frequently purchased together
+
+![Top product pairs](images/top-product-pairs.png)
+
+### Yearly country trends
+
+![Yearly sales trends by country](images/yearly-sales-trends.png)
+
+## Repository contents
+
+```text
+.
+├── Ecommerce-sales-analysis.ipynb   # Complete cleaning and analysis workflow
+├── customers.csv                    # Customer channel, city, and sector data
+├── sales_data_part1.csv             # First sales-data partition
+├── sales_data_part2.csv             # Second sales-data partition
+├── images/                           # Charts displayed in this README
+├── requirements.txt                 # Python dependencies
+└── README.md
+```
+
+## Run the notebook
+
+```bash
+git clone https://github.com/YazeedAlzoubi05/Ecommerce-sales-analysis.git
+cd Ecommerce-sales-analysis
+python -m venv .venv
+```
+
+Activate the environment:
+
+```bash
+# Windows
+.venv\Scripts\activate
+
+# macOS/Linux
+source .venv/bin/activate
+```
+
+Install the dependencies and start Jupyter:
+
+```bash
+pip install -r requirements.txt
+jupyter notebook Ecommerce-sales-analysis.ipynb
+```
+
+The three CSV files must remain in the repository root because the notebook loads them using relative paths.
+
+## Data preparation
+
+The notebook:
+
+1. Loads and concatenates both sales partitions.
+2. Normalizes column names and selected text fields.
+3. Maps equivalent channel labels to `online` or `offline` and retains missing channels as `unknown`.
+4. Removes fully duplicated rows.
+5. Standardizes country-code variations for Jordan and Lebanon.
+6. Creates USD price and transaction-value fields using the project's conversion rules.
+7. Extracts year, month, and weekday features for trend analysis.
+8. Joins sales and customer data where customer attributes are required.
+
+## Assumptions and limitations
+
+- Zero-unit transaction rows are treated as data errors and changed to one unit in the notebook.
+- Currency normalization follows the conversion rules defined in the notebook; financial conclusions depend on those assumptions.
+- The 2025 data ends on July 10, so 2025 is not treated as a complete year in year-over-year comparisons.
+- The findings are descriptive and should not be interpreted as causal effects.
+
+## Author
+
+**Yazeed Alzoubi**
+
+[GitHub profile](https://github.com/YazeedAlzoubi05)
